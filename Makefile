@@ -47,7 +47,7 @@ ifeq ($(UNAME_S),Darwin)
 endif
 
 
-CFLAGS := -target x86_64-scei-ps4-elf -funwind-tables \
+CFLAGS := -target x86_64-pc-freebsd-elf -funwind-tables \
           -fuse-init-array -isysroot $(OO_PS4_TOOLCHAIN) \
 	  -isystem $(OO_PS4_TOOLCHAIN)/include -I. -Wall \
 	  -DTITLE_ID='"$(TITLE_ID)"' -g
