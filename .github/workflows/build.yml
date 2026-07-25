@@ -38,6 +38,7 @@ jobs:
     - name: Build
       run: |
         export OO_PS4_TOOLCHAIN=$HOME/orbis-sdk
+        export DOTNET_ROOT=$HOME/dotnet
         export PATH=$HOME/orbis-sdk/bin/linux:$HOME/dotnet:$PATH
         # Replace PkgTool.Core calls with dotnet version
         sed -i 's/CC := clang-10/CC := clang/' Makefile
