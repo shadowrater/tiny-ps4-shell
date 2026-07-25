@@ -1,0 +1,46 @@
+name: Build tiny-ps4-shell
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo -S -p '' apt-key add -
+        sudo -S -p '' add-apt-repository "deb http://apt.llvm.org/noble/ llvm-toolchain-noble-18 main"
+        sudo -S -p '' apt-get update
+        sudo -S -p '' apt-get install -y clang-18 lld-18 llvm-18 python3 curl tar
+        sudo -S -p '' update-alternatives --install /usr/bin/clang clang /usr/bin/clang-18 100
+        sudo -S -p '' update-alternatives --install /usr/bin/lld lld /usr/bin/lld-18 100
+        sudo -S -p '' update-alternatives --install /usr/bin/llvm-strip llvm-strip /usr/bin/llvm-strip-100
+
+    - name: Download OpenOrbis SDK
+      run: |
+        curl -L "https://github.com/OpenOrbis/OpenOrbis-PS4-Toolchain/releases/download/v0.5.4/toolchain-llvm-18.tar.gz" -o /tmp/sdk.tar.gz
+        mkdir -p $HOME/orbis-sdk
+        tar -xzf /tmp/sdk.tar.gz -C $HOME/orbis-sdk
+        mv $HOME/orbis-sdk/OpenOrbis/PS4Toolchain/* $HOME/orbis-sdk/ 2>/dev/null || true
+        rm -rf $HOME/orbis-sdk/OpenOrbis
+
+    - name: Build
+      run: |
+        export OO_PS4_TOOLCHAIN=$HOME/orbis-sdk
+        export PATH=$HOME/orbis-sdk/bin/linux:$PATH
+        sed -i 's/CC := clang-10/CC := clang/' Makefile
+        sed -i 's/LD := ld.lld-10/LD := ld.lld/' Makefile
+        make clean || true
+        make 2>&1 | tail -20
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: tiny-ps4-shell
+        path: "*.pkg"
+        retention-days: 30
