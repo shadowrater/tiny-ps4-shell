@@ -12,13 +12,13 @@ jobs:
 
     - name: Install dependencies
       run: |
-        wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo -S -p '' apt-key add -
-        sudo -S -p '' add-apt-repository "deb http://apt.llvm.org/noble/ llvm-toolchain-noble-18 main"
-        sudo -S -p '' apt-get update
-        sudo -S -p '' apt-get install -y clang-18 lld-18 llvm-18 python3 curl tar
-        sudo -S -p '' update-alternatives --install /usr/bin/clang clang /usr/bin/clang-18 100
-        sudo -S -p '' update-alternatives --install /usr/bin/lld lld /usr/bin/lld-18 100
-        sudo -S -p '' update-alternatives --install /usr/bin/llvm-strip llvm-strip /usr/bin/llvm-strip-18
+        wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+        sudo add-apt-repository "deb http://apt.llvm.org/noble/ llvm-toolchain-noble-18 main"
+        sudo apt-get update
+        sudo apt-get install -y clang-18 lld-18 llvm-18 python3 curl tar
+        sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-18 100
+        sudo update-alternatives --install /usr/bin/lld lld /usr/bin/lld-18 100
+        sudo update-alternatives --install /usr/bin/llvm-strip llvm-strip /usr/bin/llvm-strip-18 100
 
     - name: Download OpenOrbis SDK
       run: |
@@ -35,7 +35,7 @@ jobs:
         sed -i 's/CC := clang-10/CC := clang/' Makefile
         sed -i 's/LD := ld.lld-10/LD := ld.lld/' Makefile
         make clean || true
-        make 2>&1 | tail -20
+        make 2>&1 | tail -30
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
