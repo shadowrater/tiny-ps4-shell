@@ -34,6 +34,7 @@ jobs:
         export PATH=$HOME/orbis-sdk/bin/linux:$PATH
         sed -i 's/CC := clang-10/CC := clang/' Makefile
         sed -i 's/LD := ld.lld-10/LD := ld.lld/' Makefile
+        sed -i 's/CFLAGS :=/CFLAGS := -D__ORBIS__/' Makefile
         make clean || true
         make 2>&1 | tail -30
 
