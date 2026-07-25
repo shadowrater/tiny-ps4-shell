@@ -25,7 +25,7 @@ jobs:
       run: |
         wget -q https://dot.net/v1/dotnet-install.sh -O /tmp/dotnet-install.sh
         chmod +x /tmp/dotnet-install.sh
-        /tmp/dotnet-install.sh --runtime dotnet --version 3.1.32 --install-dir $HOME/dotnet
+        /tmp/dotnet-install.sh --runtime dotnet --version 3.0.3 --install-dir $HOME/dotnet
 
     - name: Download OpenOrbis SDK
       run: |
