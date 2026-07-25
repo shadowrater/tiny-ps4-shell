@@ -20,9 +20,12 @@ jobs:
         sudo -S -p '' update-alternatives --install /usr/bin/lld lld /usr/bin/lld-18 100
         sudo -S -p '' update-alternatives --install /usr/bin/llvm-strip llvm-strip /usr/bin/llvm-strip-18 100
         sudo -S -p '' ln -sf /usr/bin/lld-18 /usr/bin/ld.lld
-        sudo -S -p '' ln -sf /usr/bin/llvm-ar-18 /usr/bin/llvm-ar
-        sudo -S -p '' ln -sf /usr/bin/llvm-objcopy-18 /usr/bin/llvm-objcopy
-        which ld.lld && ld.lld --version
+
+    - name: Install .NET 3.1
+      run: |
+        wget -q https://dot.net/v1/dotnet-install.sh -O /tmp/dotnet-install.sh
+        chmod +x /tmp/dotnet-install.sh
+        /tmp/dotnet-install.sh --runtime dotnet --version 3.1.32 --install-dir $HOME/dotnet
 
     - name: Download OpenOrbis SDK
       run: |
@@ -35,10 +38,12 @@ jobs:
     - name: Build
       run: |
         export OO_PS4_TOOLCHAIN=$HOME/orbis-sdk
-        export PATH=$HOME/orbis-sdk/bin/linux:$HOME/orbis-sdk/bin/windows:$PATH
+        export PATH=$HOME/orbis-sdk/bin/linux:$HOME/dotnet:$PATH
+        # Replace PkgTool.Core calls with dotnet version
         sed -i 's/CC := clang-10/CC := clang/' Makefile
         sed -i 's/LD := ld.lld-10/LD := ld.lld/' Makefile
         sed -i 's/CFLAGS :=/CFLAGS := -D__ORBIS__ -fPIC/' Makefile
+        sed -i 's/^PkgTool\.Core /dotnet $$(OO_PS4_TOOLCHAIN)\/bin\/windows\/PkgTool.Core.dll /' Makefile
         make clean || true
         make 2>&1 | tail -30
 
