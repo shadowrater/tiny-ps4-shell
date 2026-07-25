@@ -12,13 +12,17 @@ jobs:
 
     - name: Install dependencies
       run: |
-        wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-        sudo add-apt-repository "deb http://apt.llvm.org/noble/ llvm-toolchain-noble-18 main"
-        sudo apt-get update
-        sudo apt-get install -y clang-18 lld-18 llvm-18 python3 curl tar
-        sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-18 100
-        sudo update-alternatives --install /usr/bin/lld lld /usr/bin/lld-18 100
-        sudo update-alternatives --install /usr/bin/llvm-strip llvm-strip /usr/bin/llvm-strip-18 100
+        wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo -S -p '' apt-key add -
+        sudo -S -p '' add-apt-repository "deb http://apt.llvm.org/noble/ llvm-toolchain-noble-18 main"
+        sudo -S -p '' apt-get update
+        sudo -S -p '' apt-get install -y clang-18 lld-18 llvm-18 python3 curl tar
+        sudo -S -p '' update-alternatives --install /usr/bin/clang clang /usr/bin/clang-18 100
+        sudo -S -p '' update-alternatives --install /usr/bin/lld lld /usr/bin/lld-18 100
+        sudo -S -p '' update-alternatives --install /usr/bin/llvm-strip llvm-strip /usr/bin/llvm-strip-18 100
+        sudo -S -p '' ln -sf /usr/bin/lld-18 /usr/bin/ld.lld
+        sudo -S -p '' ln -sf /usr/bin/llvm-ar-18 /usr/bin/llvm-ar
+        sudo -S -p '' ln -sf /usr/bin/llvm-objcopy-18 /usr/bin/llvm-objcopy
+        which ld.lld && ld.lld --version
 
     - name: Download OpenOrbis SDK
       run: |
