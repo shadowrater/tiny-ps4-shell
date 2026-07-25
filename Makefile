@@ -56,35 +56,35 @@ all: $(CONTENT_ID).pkg
 
 
 $(CONTENT_ID).pkg: install.gp4 $(PKG_FILES)
-	PkgTool.Core pkg_build $< .
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll pkg_build $< .
 
 
 install.sfo:
-	PkgTool.Core sfo_new $@
-	PkgTool.Core sfo_setentry $@ APP_TYPE --type Integer --maxsize 4 --value 1
-	PkgTool.Core sfo_setentry $@ APP_VER --type Utf8 --maxsize 8 --value '$(VERSION)'
-	PkgTool.Core sfo_setentry $@ ATTRIBUTE --type Integer --maxsize 4 --value 0
-	PkgTool.Core sfo_setentry $@ CATEGORY --type Utf8 --maxsize 4 --value 'gd'
-	PkgTool.Core sfo_setentry $@ CONTENT_ID --type Utf8 --maxsize 48 --value '$(CONTENT_ID)'
-	PkgTool.Core sfo_setentry $@ DOWNLOAD_DATA_SIZE --type Integer --maxsize 4 --value 0
-	PkgTool.Core sfo_setentry $@ SYSTEM_VER --type Integer --maxsize 4 --value 0
-	PkgTool.Core sfo_setentry $@ TITLE --type Utf8 --maxsize 128 --value '$(TITLE)'
-	PkgTool.Core sfo_setentry $@ TITLE_ID --type Utf8 --maxsize 12 --value '$(TITLE_ID)'
-	PkgTool.Core sfo_setentry $@ VERSION --type Utf8 --maxsize 8 --value '$(VERSION)'
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_new $@
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ APP_TYPE --type Integer --maxsize 4 --value 1
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ APP_VER --type Utf8 --maxsize 8 --value '$(VERSION)'
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ ATTRIBUTE --type Integer --maxsize 4 --value 0
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ CATEGORY --type Utf8 --maxsize 4 --value 'gd'
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ CONTENT_ID --type Utf8 --maxsize 48 --value '$(CONTENT_ID)'
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ DOWNLOAD_DATA_SIZE --type Integer --maxsize 4 --value 0
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ SYSTEM_VER --type Integer --maxsize 4 --value 0
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ TITLE --type Utf8 --maxsize 128 --value '$(TITLE)'
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ TITLE_ID --type Utf8 --maxsize 12 --value '$(TITLE_ID)'
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ VERSION --type Utf8 --maxsize 8 --value '$(VERSION)'
 
 
 daemon.sfo:
-	PkgTool.Core sfo_new $@
-	PkgTool.Core sfo_setentry $@ APP_TYPE --type Integer --maxsize 4 --value 0
-	PkgTool.Core sfo_setentry $@ APP_VER --type Utf8 --maxsize 8 --value ''
-	PkgTool.Core sfo_setentry $@ ATTRIBUTE --type Integer --maxsize 4 --value 0
-	PkgTool.Core sfo_setentry $@ CATEGORY --type Utf8 --maxsize 4 --value 'gdd'
-	PkgTool.Core sfo_setentry $@ CONTENT_ID --type Utf8 --maxsize 48 --value ''
-	PkgTool.Core sfo_setentry $@ DOWNLOAD_DATA_SIZE --type Integer --maxsize 4 --value 0
-	PkgTool.Core sfo_setentry $@ FORMAT --type Utf8 --maxsize 4 --value 'ngh'
-	PkgTool.Core sfo_setentry $@ TITLE --type Utf8 --maxsize 128 --value '$(TITLE)'
-	PkgTool.Core sfo_setentry $@ TITLE_ID --type Utf8 --maxsize 12 --value '$(TITLE_ID)'
-	PkgTool.Core sfo_setentry $@ VERSION --type Utf8 --maxsize 8 --value '$(VERSION)'
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_new $@
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ APP_TYPE --type Integer --maxsize 4 --value 0
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ APP_VER --type Utf8 --maxsize 8 --value ''
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ ATTRIBUTE --type Integer --maxsize 4 --value 0
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ CATEGORY --type Utf8 --maxsize 4 --value 'gdd'
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ CONTENT_ID --type Utf8 --maxsize 48 --value ''
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ DOWNLOAD_DATA_SIZE --type Integer --maxsize 4 --value 0
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ FORMAT --type Utf8 --maxsize 4 --value 'ngh'
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ TITLE --type Utf8 --maxsize 128 --value '$(TITLE)'
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ TITLE_ID --type Utf8 --maxsize 12 --value '$(TITLE_ID)'
+	dotnet $(OO_PS4_TOOLCHAIN)/bin/windows/PkgTool.Core.dll sfo_setentry $@ VERSION --type Utf8 --maxsize 8 --value '$(VERSION)'
 
 
 icon0.png:
