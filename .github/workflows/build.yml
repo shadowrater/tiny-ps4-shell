@@ -35,7 +35,7 @@ jobs:
     - name: Build
       run: |
         export OO_PS4_TOOLCHAIN=$HOME/orbis-sdk
-        export PATH=$HOME/orbis-sdk/bin/linux:$PATH
+        export PATH=$HOME/orbis-sdk/bin/linux:$HOME/orbis-sdk/bin/windows:$PATH
         sed -i 's/CC := clang-10/CC := clang/' Makefile
         sed -i 's/LD := ld.lld-10/LD := ld.lld/' Makefile
         sed -i 's/CFLAGS :=/CFLAGS := -D__ORBIS__ -fPIC/' Makefile
